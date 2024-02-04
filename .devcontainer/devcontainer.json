@@ -1,0 +1,63 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/dotnet
+{
+	"$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+	"name": "MusicSync",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0-bookworm",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"workspaceMount": "source=${localWorkspaceFolder},target=${containerWorkspaceFolder},type=bind,consistency=cached",
+	"mounts": [
+		{
+			"source": "/dev/bus/usb",
+			"target": "/dev/bus/usb",
+			"type": "bind"
+		},
+	],
+	"runArgs": [
+		// Required for host folder mapping to work correctly with rootless podman.
+		// Will fail on docker
+		"--userns", "keep-id",
+	],
+	"containerEnv": {
+		// Required for extension caching to work with rootless podman.
+		"HOME": "/home/vscode"
+	},
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers-contrib/features/apt-get-packages": {
+			"packages": "usbutils,"
+		},
+	},
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"settings": {
+
+				"editor.rulers": [80,120,160],
+				"editor.trimAutoWhitespace": true,
+				"editor.renderWhitespace": "all",
+
+				"files.exclude": {
+				},
+				"files.watcherExclude": {
+				},
+				"files.insertFinalNewline": true,
+				"files.trimFinalNewlines": true,
+				"files.trimTrailingWhitespace": true,
+
+
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "/usr/bin/zsh",
+					}
+				},
+			},
+			"extensions": [
+			]
+		}
+	},	
+}
