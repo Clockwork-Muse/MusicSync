@@ -42,6 +42,7 @@
 		"argcomplete": "activate-global-python-argcomplete --user",
 		"pre-commit": "pipx install pre-commit && pre-commit install --install-hooks -t commit-msg -t pre-push",
 		"Commitizen": "pipx install Commitizen",
+		"dotnet_restore": "sudo dotnet workload update && dotnet restore",
 	},
 
 	// Configure tool-specific properties.
